@@ -8,8 +8,8 @@
       "name": "plugin-gtm",
       "description": "Go-to-market engine for Claude Code — analyze products, build GTM plans, generate launch content, and orchestrate market entry.",
       "source": {
-        "source": "url",
-        "url": "https://github.com/twofoldtech-dakota/plugin-gtm.git"
+        "source": "github",
+        "repo": "twofoldtech-dakota/plugin-gtm"
       }
     }
   ]

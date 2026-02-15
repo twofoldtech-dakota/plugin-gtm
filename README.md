@@ -32,8 +32,16 @@ plugin-gtm keeps you in the terminal. Point it at your codebase, and it figures 
 
 ## Install
 
-```bash
-claude plugin install https://github.com/twofoldtech-dakota/plugin-gtm.git
+**Step 1** — Add the marketplace (once per machine):
+
+```
+/plugin marketplace add twofoldtech-dakota/plugin-gtm
+```
+
+**Step 2** — Install the plugin:
+
+```
+/plugin install plugin-gtm@twofoldtech-dakota-plugin-gtm
 ```
 
 Requires Node.js >= 22 (for native `node:sqlite`).
@@ -152,10 +160,10 @@ For local development with file watching:
 npm run dev
 ```
 
-To install the local copy as a plugin:
+To test the local copy as a plugin:
 
 ```bash
-claude plugin install --plugin-dir .
+claude --plugin-dir .
 ```
 
 ## License
