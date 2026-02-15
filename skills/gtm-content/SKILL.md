@@ -35,9 +35,16 @@ If a content type is specified in arguments, generate that. Otherwise, ask the u
 | `blog_post` | Launch blog post |
 | `ad_copy` | Short ad copy for various platforms |
 
+### Step 2b: Load Template Content Hints
+
+After loading the plan, check if a GTM template exists for the product's category:
+1. Call `gtm_template_list` and check if the product's `category` matches a template
+2. If so, call `gtm_template_get` to load the template's `contentHints`
+3. Use the content hint for the requested content type to guide generation (e.g., for developer tools: "include code snippets in the landing page hero")
+
 ### Step 3: Generate Content
 
-Use the product profile and GTM plan (positioning, messaging, ICP) to inform every piece of content. Keep consistent voice and messaging across all content types.
+Use the product profile, GTM plan (positioning, messaging, ICP), and template content hints (if available) to inform every piece of content. Keep consistent voice and messaging across all content types.
 
 #### Landing Page
 Generate complete sections:

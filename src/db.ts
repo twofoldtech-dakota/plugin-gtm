@@ -87,11 +87,31 @@ function migrate(db: DatabaseSync): void {
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
+    CREATE TABLE IF NOT EXISTS content_versions (
+      id TEXT PRIMARY KEY,
+      content_id TEXT NOT NULL REFERENCES content(id) ON DELETE CASCADE,
+      version_number INTEGER NOT NULL,
+      body TEXT NOT NULL,
+      feedback TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
     CREATE INDEX IF NOT EXISTS idx_plans_product ON plans(product_id);
     CREATE INDEX IF NOT EXISTS idx_content_product ON content(product_id);
     CREATE INDEX IF NOT EXISTS idx_content_plan ON content(plan_id);
     CREATE INDEX IF NOT EXISTS idx_launch_items_plan ON launch_items(plan_id);
+    CREATE INDEX IF NOT EXISTS idx_versions_content ON content_versions(content_id);
   `);
+
+  // v0.2.0 migrations — add columns to content table
+  const contentCols = db.prepare("PRAGMA table_info(content)").all() as Array<{ name: string }>;
+  const colNames = new Set(contentCols.map((c) => c.name));
+  if (!colNames.has("published_at")) {
+    db.exec("ALTER TABLE content ADD COLUMN published_at TEXT");
+  }
+  if (!colNames.has("file_path")) {
+    db.exec("ALTER TABLE content ADD COLUMN file_path TEXT");
+  }
 }
 
 export function closeDb(): void {

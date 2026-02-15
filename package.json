@@ -1,6 +1,6 @@
 {
   "name": "plugin-gtm",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Go-to-market engine for Claude Code — analyze products, build GTM plans, generate launch content, and orchestrate market entry.",
   "type": "module",
   "main": "dist/index.js",

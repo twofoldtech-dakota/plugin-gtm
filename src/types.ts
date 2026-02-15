@@ -57,8 +57,21 @@ export interface ContentRecord {
   body: string;
   status: ContentStatus;
   metadata: string; // JSON object (platform, variant, etc.)
+  published_at: string | null;
+  file_path: string | null;
   created_at: string;
   updated_at: string;
+}
+
+// ── Content Versioning ─────────────────────────────────────────
+
+export interface ContentVersionRecord {
+  id: string;
+  content_id: string;
+  version_number: number;
+  body: string;
+  feedback: string;
+  created_at: string;
 }
 
 // ── Launch Tracker ───────────────────────────────────────────────

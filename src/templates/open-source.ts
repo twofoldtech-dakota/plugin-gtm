@@ -1,0 +1,126 @@
+import type { GtmTemplate } from "./index.js";
+
+export const openSourceTemplate: GtmTemplate = {
+  category: "open-source",
+  description: "GTM template for open-source projects — libraries, frameworks, and community-driven tools",
+  positioning: {
+    category: "Open-Source Project",
+    for: "Developers and maintainers building with [technology]",
+    who_need: "A reliable, well-maintained solution for [problem domain]",
+    this_product: "[Product] is an open-source [type] that [core value proposition]",
+    that_provides: "A community-backed alternative with full transparency and extensibility",
+    unlike: "Proprietary solutions with opaque internals and vendor lock-in",
+    our_product: "Fully open-source, community-driven, with enterprise support available",
+  },
+  messaging: {
+    tagline: "Open source, built by the community",
+    elevator_pitch: "An open-source [tool/framework] that [key benefit]. Free forever, with optional enterprise support for teams that need it. Join a growing community of contributors.",
+    value_props: [
+      "100% open-source — inspect, modify, and contribute",
+      "Active community with responsive maintainers",
+      "Enterprise-ready with optional commercial support",
+    ],
+    proof_points: [
+      "X GitHub stars",
+      "Y contributors from Z countries",
+      "Used in production by [notable projects/companies]",
+    ],
+    objection_handling: {
+      "Is it maintained long-term?": "Active maintainer team with a clear governance model and regular release cadence.",
+      "Can we get support?": "Community support via GitHub Discussions, plus enterprise support plans for production use.",
+      "How does it compare to [alternative]?": "Key differentiators: [speed/simplicity/extensibility]. See our comparison guide.",
+    },
+  },
+  icp: {
+    title: "Software developers, open-source maintainers, CTOs",
+    company_size: "Individual contributors to mid-size engineering teams",
+    industry: "Software development, technology",
+    pain_points: [
+      "Existing solutions are proprietary or poorly maintained",
+      "Need a solution they can customize and extend",
+      "Want transparency into how their tools work",
+    ],
+    buying_triggers: [
+      "Evaluating alternatives due to license changes",
+      "Building a new project and choosing a tech stack",
+      "Contributing to open-source and looking for projects",
+    ],
+    evaluation_criteria: [
+      "License (permissive preferred)",
+      "Community health (issues, PRs, response time)",
+      "Documentation quality",
+      "Performance benchmarks",
+    ],
+  },
+  channels: ["GitHub", "HackerNews", "Reddit", "Conference talks", "Dev.to", "Twitter/X"],
+  pricing: {
+    model: "open-source + enterprise support",
+    tiers: [
+      { name: "Community", price: "Free", features: ["Full source code", "MIT/Apache license", "Community support via GitHub"] },
+      { name: "Enterprise Support", price: "$499/mo", features: ["Priority bug fixes", "Direct maintainer access", "Architecture reviews", "SLA guarantees"] },
+    ],
+    rationale: "Open-source core drives adoption and community contributions. Enterprise support captures revenue from companies that need reliability guarantees.",
+  },
+  timeline: [
+    {
+      phase: "Pre-launch",
+      duration: "2 weeks",
+      activities: [
+        "Write comprehensive README with examples",
+        "Set up contributing guide and code of conduct",
+        "Create issue templates and PR templates",
+        "Write getting-started documentation",
+        "Prepare Show HN post and Reddit announcement",
+        "Reach out to potential early adopters for feedback",
+        "Record a walkthrough video or screencast",
+      ],
+    },
+    {
+      phase: "Launch",
+      duration: "1 week",
+      activities: [
+        "Post Show HN on HackerNews",
+        "Share on Reddit (r/programming, relevant subreddits)",
+        "Tweet announcement with demo",
+        "Post on Dev.to with a technical deep-dive",
+        "Share in relevant Discord/Slack communities",
+        "Email newsletter to dev contacts",
+      ],
+    },
+    {
+      phase: "Post-launch",
+      duration: "6 weeks",
+      activities: [
+        "Triage and respond to all issues within 24h",
+        "Review and merge community PRs",
+        "Write a \"lessons learned\" blog post",
+        "Submit talk proposals to relevant conferences",
+        "Create a roadmap based on community feedback",
+        "Set up GitHub Sponsors or Open Collective",
+      ],
+    },
+  ],
+  contentHints: {
+    landing_page: "Emphasize open-source nature prominently. Show GitHub stars and contributor count. Include a quick-start code snippet.",
+    readme: "This is your most important content. Make it scannable with clear headings. Show install + first use in under 60 seconds. Include badges for build status, version, and license.",
+    blog_post: "Tell the story of why you built this. Explain the technical decisions. Be authentic about trade-offs. Invite contributions.",
+    social_post: "Lead with the technical problem. Show a code snippet or benchmark. Mention it's open-source. Ask for feedback.",
+    email: "Keep it personal and authentic. Explain why you built it and why it matters. Link to the GitHub repo prominently.",
+  },
+  launchChecklist: [
+    { category: "pre-launch", title: "Write comprehensive README", priority: "critical" },
+    { category: "pre-launch", title: "Set up CONTRIBUTING.md and CODE_OF_CONDUCT.md", priority: "critical" },
+    { category: "pre-launch", title: "Create issue and PR templates", priority: "high" },
+    { category: "pre-launch", title: "Write getting-started documentation", priority: "high" },
+    { category: "pre-launch", title: "Choose and apply license", priority: "critical" },
+    { category: "pre-launch", title: "Record walkthrough video", priority: "medium" },
+    { category: "launch", title: "Post Show HN on HackerNews", priority: "critical" },
+    { category: "launch", title: "Share on Reddit", priority: "high" },
+    { category: "launch", title: "Post technical deep-dive on Dev.to", priority: "high" },
+    { category: "launch", title: "Share in relevant communities", priority: "medium" },
+    { category: "post-launch", title: "Triage all issues within 24h", priority: "critical" },
+    { category: "post-launch", title: "Review and merge community PRs", priority: "high" },
+    { category: "post-launch", title: "Create public roadmap", priority: "medium" },
+    { category: "post-launch", title: "Set up funding (Sponsors/Open Collective)", priority: "low" },
+  ],
+};

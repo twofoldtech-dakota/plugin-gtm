@@ -1,0 +1,128 @@
+import type { GtmTemplate } from "./index.js";
+
+export const saasTemplate: GtmTemplate = {
+  category: "saas",
+  description: "GTM template for SaaS products — web apps, platforms, and subscription services",
+  positioning: {
+    category: "SaaS Platform",
+    for: "Team leads and decision makers at growing companies",
+    who_need: "A streamlined way to [core workflow the product addresses]",
+    this_product: "[Product] is a [type of platform] that [core value proposition]",
+    that_provides: "Increased productivity and better visibility across teams",
+    unlike: "Legacy tools that require heavy setup and IT involvement",
+    our_product: "Gets teams productive in minutes with an intuitive interface and powerful automation",
+  },
+  messaging: {
+    tagline: "Your team, supercharged",
+    elevator_pitch: "A modern SaaS platform that helps teams [key benefit]. Set up in minutes, see results in days. No complex onboarding or lengthy contracts.",
+    value_props: [
+      "Get started in minutes — no IT required",
+      "Built-in automation saves hours per week",
+      "Real-time collaboration keeps everyone aligned",
+    ],
+    proof_points: [
+      "X teams use it daily",
+      "Y% average time savings reported",
+      "Z NPS score from customers",
+    ],
+    objection_handling: {
+      "We already have a tool for this": "Most teams use 3-4 tools to do what our platform handles in one place. Consolidation alone saves hours per week.",
+      "Is our data secure?": "SOC 2 compliant, encrypted at rest and in transit, with role-based access controls.",
+      "What if we outgrow it?": "Built to scale from 5 to 5,000 users. Enterprise tier includes custom integrations and dedicated support.",
+    },
+  },
+  icp: {
+    title: "Team leads, operations managers, department heads",
+    company_size: "10-500 employees, Series A to Series C",
+    industry: "Technology, professional services, e-commerce",
+    pain_points: [
+      "Too many tools and manual processes",
+      "Lack of visibility into team progress",
+      "Slow onboarding for new team members",
+    ],
+    buying_triggers: [
+      "Team growing past 10 people",
+      "Current tool contract coming up for renewal",
+      "New leadership looking to improve operations",
+    ],
+    evaluation_criteria: [
+      "Time to value (how fast can we start using it?)",
+      "Integration with existing tools",
+      "Pricing transparency and flexibility",
+      "Customer support quality",
+    ],
+  },
+  channels: ["ProductHunt", "LinkedIn", "Content marketing", "Paid ads", "Partnerships", "Email marketing"],
+  pricing: {
+    model: "freemium + subscription",
+    tiers: [
+      { name: "Free", price: "$0", features: ["Up to 5 users", "Core features", "Community support"] },
+      { name: "Team", price: "$12/user/mo", features: ["Unlimited users", "Advanced features", "Priority support", "Integrations"] },
+      { name: "Business", price: "$29/user/mo", features: ["SSO/SAML", "Advanced analytics", "Custom workflows", "Dedicated CSM"] },
+      { name: "Enterprise", price: "Custom", features: ["Custom deployment", "SLA guarantees", "Professional services"] },
+    ],
+    rationale: "Freemium drives adoption from individuals and small teams. Per-seat pricing scales with value as teams grow. Enterprise tier captures large accounts with custom needs.",
+  },
+  timeline: [
+    {
+      phase: "Pre-launch",
+      duration: "3 weeks",
+      activities: [
+        "Build landing page with signup waitlist",
+        "Create product demo video (2-3 minutes)",
+        "Write onboarding email sequence (5 emails)",
+        "Set up analytics and conversion tracking",
+        "Prepare case study or beta tester testimonial",
+        "Draft LinkedIn content calendar (2 weeks)",
+        "Set up ProductHunt upcoming page",
+      ],
+    },
+    {
+      phase: "Launch",
+      duration: "1 week",
+      activities: [
+        "Launch on ProductHunt",
+        "Send launch email to waitlist",
+        "Publish announcement on LinkedIn",
+        "Run targeted LinkedIn ads",
+        "Reach out to industry newsletters",
+        "Host a live demo webinar",
+      ],
+    },
+    {
+      phase: "Post-launch",
+      duration: "4 weeks",
+      activities: [
+        "Run onboarding calls for early signups",
+        "Collect and publish testimonials",
+        "Write comparison blog posts (vs competitors)",
+        "Launch referral program",
+        "Optimize conversion funnel based on data",
+        "Publish weekly tips and use-case content",
+      ],
+    },
+  ],
+  contentHints: {
+    landing_page: "Lead with the outcome, not features. Use social proof above the fold. Show a product screenshot or short video. Include clear pricing.",
+    readme: "Focus on what the product does, not how to install it. Link to the app and documentation. Include screenshots.",
+    blog_post: "Focus on the problem and industry trends. Position the product as the natural solution. Include customer quotes if available.",
+    social_post: "LinkedIn-first tone — professional but human. Share insights and data, not just product features. Tag relevant people and companies.",
+    email: "Personalized subject line. Lead with the reader's pain point. Include one clear CTA. Keep under 200 words.",
+  },
+  launchChecklist: [
+    { category: "pre-launch", title: "Build and publish landing page", priority: "critical" },
+    { category: "pre-launch", title: "Create product demo video", priority: "critical" },
+    { category: "pre-launch", title: "Write onboarding email sequence", priority: "high" },
+    { category: "pre-launch", title: "Set up analytics and conversion tracking", priority: "high" },
+    { category: "pre-launch", title: "Prepare customer testimonial or case study", priority: "high" },
+    { category: "pre-launch", title: "Set up ProductHunt upcoming page", priority: "medium" },
+    { category: "launch", title: "Launch on ProductHunt", priority: "critical" },
+    { category: "launch", title: "Send launch email to waitlist", priority: "critical" },
+    { category: "launch", title: "Publish LinkedIn announcement", priority: "high" },
+    { category: "launch", title: "Run targeted LinkedIn ad campaign", priority: "medium" },
+    { category: "post-launch", title: "Run onboarding calls with early users", priority: "critical" },
+    { category: "post-launch", title: "Collect and publish testimonials", priority: "high" },
+    { category: "post-launch", title: "Write competitor comparison content", priority: "medium" },
+    { category: "post-launch", title: "Launch referral program", priority: "medium" },
+  ],
+};

@@ -26,9 +26,19 @@ Parse `$ARGUMENTS`:
 - Check for existing plans with `gtm_plan_list`
 - If a plan already exists, ask if the user wants to update it or create a new one
 
+### Step 2b: Check for Template Match
+
+Call `gtm_template_list` to get available templates. If the product's `category` matches a template category (e.g. `developer-tool`, `saas`, `open-source`, `cli-tool`, `api-service`):
+
+1. Call `gtm_template_get` with the matching category
+2. Present the template as a starting point: "I found a GTM template for **[category]** products. Want to use it as a starting point?"
+3. If the user accepts, use `gtm_plan_create_from_template` and skip to Step 4 (the user can customize individual sections afterward)
+4. If the user wants to customize, use the template values as defaults for each section in Step 3
+5. If no template matches, proceed to Step 3 as usual
+
 ### Step 3: Build the GTM Plan
 
-Work through each section with the user. For each section, propose your recommendation based on the product profile, then ask for input before finalizing.
+Work through each section with the user. For each section, propose your recommendation based on the product profile (and template defaults if available), then ask for input before finalizing.
 
 #### 3a. Positioning
 Define how the product fits in the market:

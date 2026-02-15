@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { SQLInputValue } from "node:sqlite";
 import { getDb } from "../db.js";
 import type { ContentRecord, ContentType, ContentStatus } from "../types.js";
+import { snapshotVersion } from "./versions.js";
 
 export function createContent(input: {
   product_id: string;
@@ -78,6 +79,11 @@ export function updateContent(
   const db = getDb();
   const existing = getContent(id);
   if (!existing) return undefined;
+
+  // Auto-snapshot the current body before updating if body is changing
+  if (updates.body !== undefined && updates.body !== existing.body) {
+    snapshotVersion(id);
+  }
 
   const fields: string[] = [];
   const values: SQLInputValue[] = [];

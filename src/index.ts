@@ -35,10 +35,25 @@ import {
   deleteLaunchItem,
   getLaunchProgress,
 } from "./launch/crud.js";
+import {
+  snapshotVersion,
+  listVersions,
+  getVersion,
+  restoreVersion,
+} from "./content/versions.js";
+import {
+  exportContent,
+  exportAllContent,
+  getContentDiff,
+} from "./content/export.js";
+import {
+  listTemplates,
+  getTemplate,
+} from "./templates/index.js";
 
 const server = new McpServer({
   name: "gtm",
-  version: "0.1.0",
+  version: "0.2.0",
 });
 
 // ── Product Tools ────────────────────────────────────────────────
@@ -364,6 +379,173 @@ server.tool(
   async ({ plan_id }) => {
     const progress = getLaunchProgress(plan_id);
     return { content: [{ type: "text", text: JSON.stringify(progress, null, 2) }] };
+  },
+);
+
+// ── Content Versioning Tools ─────────────────────────────────
+
+server.tool(
+  "gtm_content_versions",
+  "List version history for a content item",
+  { content_id: z.string().describe("Content ID") },
+  async ({ content_id }) => {
+    const versions = listVersions(content_id);
+    const summary = versions.map((v) => ({
+      version_number: v.version_number,
+      feedback: v.feedback,
+      body_preview: v.body.slice(0, 200) + (v.body.length > 200 ? "..." : ""),
+      created_at: v.created_at,
+    }));
+    return { content: [{ type: "text", text: JSON.stringify(summary, null, 2) }] };
+  },
+);
+
+server.tool(
+  "gtm_content_version_get",
+  "Get the full body of a specific content version",
+  {
+    content_id: z.string().describe("Content ID"),
+    version_number: z.number().describe("Version number to retrieve"),
+  },
+  async ({ content_id, version_number }) => {
+    const version = getVersion(content_id, version_number);
+    if (!version) return { content: [{ type: "text", text: "Version not found" }], isError: true };
+    return { content: [{ type: "text", text: JSON.stringify(version, null, 2) }] };
+  },
+);
+
+server.tool(
+  "gtm_content_restore",
+  "Restore a previous version of content (snapshots current body first)",
+  {
+    content_id: z.string().describe("Content ID"),
+    version_number: z.number().describe("Version number to restore"),
+  },
+  async ({ content_id, version_number }) => {
+    const version = restoreVersion(content_id, version_number);
+    if (!version) return { content: [{ type: "text", text: "Version or content not found" }], isError: true };
+    const updated = getContent(content_id);
+    return { content: [{ type: "text", text: JSON.stringify(updated, null, 2) }] };
+  },
+);
+
+// ── Content Export Tools ─────────────────────────────────────
+
+server.tool(
+  "gtm_content_export",
+  "Export a content item to a file in the project directory",
+  {
+    id: z.string().describe("Content ID"),
+    target_path: z.string().optional().describe("Override output file path (relative to project root)"),
+    overwrite: z.boolean().optional().describe("Overwrite existing file (default false)"),
+  },
+  async ({ id, target_path, overwrite }) => {
+    try {
+      const result = await exportContent(id, { targetPath: target_path, overwrite: overwrite ?? false });
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err) {
+      log.error("gtm_content_export failed", err);
+      return { content: [{ type: "text", text: `Error: ${err}` }], isError: true };
+    }
+  },
+);
+
+server.tool(
+  "gtm_content_export_all",
+  "Batch export all final content for a product or plan to files",
+  {
+    product_id: z.string().optional().describe("Filter by product ID"),
+    plan_id: z.string().optional().describe("Filter by plan ID"),
+    overwrite: z.boolean().optional().describe("Overwrite existing files (default false)"),
+  },
+  async ({ product_id, plan_id, overwrite }) => {
+    try {
+      const result = await exportAllContent(
+        { product_id, plan_id },
+        { overwrite: overwrite ?? false },
+      );
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err) {
+      log.error("gtm_content_export_all failed", err);
+      return { content: [{ type: "text", text: `Error: ${err}` }], isError: true };
+    }
+  },
+);
+
+server.tool(
+  "gtm_content_diff",
+  "Check if an exported content file has drifted from the database version",
+  { id: z.string().describe("Content ID") },
+  async ({ id }) => {
+    try {
+      const result = getContentDiff(id);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err) {
+      log.error("gtm_content_diff failed", err);
+      return { content: [{ type: "text", text: `Error: ${err}` }], isError: true };
+    }
+  },
+);
+
+// ── Template Tools ───────────────────────────────────────────
+
+server.tool(
+  "gtm_template_list",
+  "List available GTM plan templates by product category",
+  {},
+  async () => {
+    const templates = listTemplates();
+    return { content: [{ type: "text", text: JSON.stringify(templates, null, 2) }] };
+  },
+);
+
+server.tool(
+  "gtm_template_get",
+  "Get the full GTM plan template for a product category",
+  { category: z.string().describe("Template category (e.g. developer-tool, saas, open-source)") },
+  async ({ category }) => {
+    const template = getTemplate(category);
+    if (!template) return { content: [{ type: "text", text: "Template not found" }], isError: true };
+    return { content: [{ type: "text", text: JSON.stringify(template, null, 2) }] };
+  },
+);
+
+server.tool(
+  "gtm_plan_create_from_template",
+  "Create a GTM plan pre-populated from a template, with optional overrides",
+  {
+    product_id: z.string().describe("Product ID"),
+    name: z.string().describe("Plan name"),
+    template_category: z.string().describe("Template category to use"),
+    positioning: z.record(z.unknown()).optional().describe("Override positioning"),
+    messaging: z.record(z.unknown()).optional().describe("Override messaging"),
+    icp: z.record(z.unknown()).optional().describe("Override ICP"),
+    channels: z.array(z.string()).optional().describe("Override channels"),
+    pricing: z.record(z.unknown()).optional().describe("Override pricing"),
+    timeline: z.array(z.record(z.unknown())).optional().describe("Override timeline"),
+    notes: z.string().optional(),
+  },
+  async ({ product_id, name, template_category, ...overrides }) => {
+    const template = getTemplate(template_category);
+    if (!template) return { content: [{ type: "text", text: `Template '${template_category}' not found` }], isError: true };
+
+    try {
+      const plan = createPlan({
+        product_id,
+        name,
+        positioning: overrides.positioning ?? template.positioning,
+        messaging: overrides.messaging ?? template.messaging,
+        icp: overrides.icp ?? template.icp,
+        channels: overrides.channels ?? template.channels,
+        pricing: overrides.pricing ?? template.pricing,
+        timeline: overrides.timeline ?? template.timeline,
+        notes: overrides.notes,
+      });
+      return { content: [{ type: "text", text: JSON.stringify(plan, null, 2) }] };
+    } catch (err) {
+      log.error("gtm_plan_create_from_template failed", err);
+      return { content: [{ type: "text", text: `Error: ${err}` }], isError: true };
+    }
   },
 );
 

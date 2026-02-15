@@ -1,0 +1,126 @@
+import type { GtmTemplate } from "./index.js";
+
+export const developerToolTemplate: GtmTemplate = {
+  category: "developer-tool",
+  description: "GTM template for developer tools — SDKs, libraries, frameworks, and dev productivity tools",
+  positioning: {
+    category: "Developer Tool",
+    for: "Individual developers and small engineering teams",
+    who_need: "A better way to [solve a specific developer pain point]",
+    this_product: "[Product] is a [type of tool] that [core value proposition]",
+    that_provides: "Faster development workflows and fewer manual steps",
+    unlike: "Existing solutions that are complex, slow, or poorly documented",
+    our_product: "Simple API, excellent docs, and integrates with existing toolchains",
+  },
+  messaging: {
+    tagline: "Build faster with less friction",
+    elevator_pitch: "A developer tool that eliminates [pain point], letting you ship in minutes instead of hours. Works with your existing stack, no migration required.",
+    value_props: [
+      "Drop-in integration — works with your existing tools",
+      "Developer-first DX with clear docs and examples",
+      "Open and extensible — customize to your workflow",
+    ],
+    proof_points: [
+      "Used by X developers",
+      "Y GitHub stars",
+      "Z% reduction in build time",
+    ],
+    objection_handling: {
+      "Why not build it ourselves?": "You could, but this saves weeks of engineering time. Focus on your product, not your tooling.",
+      "Is it production-ready?": "Battle-tested with comprehensive test coverage and used by teams at [companies].",
+      "What about vendor lock-in?": "Open-source core with standard APIs. You can fork or migrate at any time.",
+    },
+  },
+  icp: {
+    title: "Software engineers, tech leads, DevOps engineers",
+    company_size: "Individual developers to teams of 50",
+    industry: "Software development, SaaS, startups",
+    pain_points: [
+      "Too much time spent on repetitive setup and boilerplate",
+      "Existing tools are too complex or poorly maintained",
+      "Hard to enforce best practices across the team",
+    ],
+    buying_triggers: [
+      "Starting a new project and evaluating tools",
+      "Growing team needs standardized workflows",
+      "Hit scaling issues with current approach",
+    ],
+    evaluation_criteria: [
+      "Ease of integration with existing stack",
+      "Quality of documentation and examples",
+      "Active community and maintenance",
+      "Performance and reliability",
+    ],
+  },
+  channels: ["GitHub", "HackerNews", "Reddit", "Dev.to", "Twitter/X", "ProductHunt"],
+  pricing: {
+    model: "open-source + paid",
+    tiers: [
+      { name: "Open Source", price: "Free", features: ["Core functionality", "Community support", "MIT license"] },
+      { name: "Pro", price: "$19/mo", features: ["Advanced features", "Priority support", "Team management"] },
+      { name: "Enterprise", price: "Custom", features: ["SSO/SAML", "Dedicated support", "Custom integrations"] },
+    ],
+    rationale: "Open-source core builds trust and adoption. Paid tiers capture value from teams and enterprises that need additional features and support.",
+  },
+  timeline: [
+    {
+      phase: "Pre-launch",
+      duration: "2 weeks",
+      activities: [
+        "Polish README with install guide and examples",
+        "Create getting-started documentation",
+        "Record demo GIF or video",
+        "Build example projects",
+        "Set up GitHub repo (issues, discussions, contributing guide)",
+        "Prepare HN and Reddit posts",
+        "Reach out to dev influencers for early feedback",
+      ],
+    },
+    {
+      phase: "Launch",
+      duration: "1 week",
+      activities: [
+        "Post on HackerNews (Show HN)",
+        "Submit to ProductHunt",
+        "Share on Reddit (r/programming, relevant subreddits)",
+        "Tweet thread with demo",
+        "Publish launch blog post on Dev.to",
+        "Post in relevant Discord/Slack communities",
+      ],
+    },
+    {
+      phase: "Post-launch",
+      duration: "4 weeks",
+      activities: [
+        "Respond to all GitHub issues and comments",
+        "Write follow-up blog posts based on feedback",
+        "Add frequently requested features",
+        "Publish tutorials and integration guides",
+        "Track GitHub stars, npm downloads, adoption metrics",
+      ],
+    },
+  ],
+  contentHints: {
+    landing_page: "Lead with a code snippet in the hero. Show before/after comparison. Include a live demo or playground link.",
+    readme: "Start with a one-liner and badges. Show install + usage in under 30 seconds. Include a GIF demo.",
+    blog_post: "Technical blog post with code examples. Explain the problem deeply before introducing the solution. Show real benchmarks.",
+    social_post: "Lead with the problem you solve. Include a code snippet or GIF. Use technical but accessible language.",
+    email: "Keep it short and technical. Link to the GitHub repo prominently. Include a quick-start code snippet.",
+  },
+  launchChecklist: [
+    { category: "pre-launch", title: "Write comprehensive README with quick-start guide", priority: "critical" },
+    { category: "pre-launch", title: "Create getting-started documentation", priority: "critical" },
+    { category: "pre-launch", title: "Record demo GIF/video", priority: "high" },
+    { category: "pre-launch", title: "Set up GitHub repo (issues, discussions, CONTRIBUTING.md)", priority: "high" },
+    { category: "pre-launch", title: "Build 2-3 example projects", priority: "high" },
+    { category: "pre-launch", title: "Prepare Show HN post", priority: "medium" },
+    { category: "launch", title: "Post on HackerNews", priority: "critical" },
+    { category: "launch", title: "Submit to ProductHunt", priority: "high" },
+    { category: "launch", title: "Share on Reddit", priority: "high" },
+    { category: "launch", title: "Publish launch tweet thread", priority: "high" },
+    { category: "launch", title: "Post on Dev.to", priority: "medium" },
+    { category: "post-launch", title: "Respond to all GitHub issues within 24h", priority: "critical" },
+    { category: "post-launch", title: "Write follow-up technical blog post", priority: "medium" },
+    { category: "post-launch", title: "Publish integration guides", priority: "medium" },
+  ],
+};

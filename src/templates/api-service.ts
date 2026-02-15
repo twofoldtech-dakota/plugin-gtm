@@ -1,0 +1,128 @@
+import type { GtmTemplate } from "./index.js";
+
+export const apiServiceTemplate: GtmTemplate = {
+  category: "api-service",
+  description: "GTM template for API services — REST/GraphQL APIs, developer platforms, and integration services",
+  positioning: {
+    category: "API Service",
+    for: "Backend developers and platform teams building integrations",
+    who_need: "A reliable API for [capability] without building it in-house",
+    this_product: "[Product] is an API that [core value proposition]",
+    that_provides: "Production-ready [capability] with a single API call",
+    unlike: "Building in-house which takes months and ongoing maintenance",
+    our_product: "Simple REST API with SDKs, comprehensive docs, and 99.9% uptime",
+  },
+  messaging: {
+    tagline: "One API call away",
+    elevator_pitch: "An API that gives you [capability] in a single integration. Ship in hours, not months. SDKs for every major language, 99.9% uptime SLA, and pay only for what you use.",
+    value_props: [
+      "Ship in hours — one API call replaces months of development",
+      "SDKs for every major language with typed interfaces",
+      "Usage-based pricing — pay only for what you use",
+    ],
+    proof_points: [
+      "X API calls processed daily",
+      "99.9% uptime over the last Y months",
+      "Z developers using the API",
+    ],
+    objection_handling: {
+      "Why not build it ourselves?": "You could, but maintaining [capability] at scale requires dedicated infrastructure. Our API handles the complexity so you can focus on your product.",
+      "What about latency?": "Global edge network with p99 latency under Xms. We're designed for production workloads.",
+      "What if you go down?": "99.9% SLA with status page, webhooks for incidents, and graceful degradation built in.",
+    },
+  },
+  icp: {
+    title: "Backend developers, platform engineers, technical product managers",
+    company_size: "Startups to mid-market (10-1000 employees)",
+    industry: "SaaS, fintech, e-commerce, marketplace platforms",
+    pain_points: [
+      "Building [capability] in-house is expensive and distracting",
+      "Need a reliable third-party service they can depend on",
+      "Current solution doesn't scale or has poor developer experience",
+    ],
+    buying_triggers: [
+      "Building a new product feature that requires [capability]",
+      "Current vendor has reliability or pricing issues",
+      "Need to scale existing implementation beyond homegrown solution",
+    ],
+    evaluation_criteria: [
+      "API documentation quality and SDK availability",
+      "Latency, uptime, and reliability track record",
+      "Pricing transparency and predictability",
+      "Rate limits and scalability",
+    ],
+  },
+  channels: ["Developer docs", "Integration marketplaces", "DevRel", "Twitter/X", "HackerNews", "Conference sponsorships"],
+  pricing: {
+    model: "usage-based",
+    tiers: [
+      { name: "Free", price: "$0", features: ["1,000 API calls/month", "Community support", "All endpoints"] },
+      { name: "Growth", price: "$0.001/call", features: ["Pay as you go", "Email support", "Higher rate limits"] },
+      { name: "Scale", price: "Volume discounts", features: ["Committed use discounts", "Priority support", "Custom rate limits", "SLA guarantee"] },
+      { name: "Enterprise", price: "Custom", features: ["Dedicated infrastructure", "Custom SLA", "Professional services", "On-prem option"] },
+    ],
+    rationale: "Usage-based pricing aligns cost with value. Free tier drives adoption and lets developers experiment. Volume discounts reward growth.",
+  },
+  timeline: [
+    {
+      phase: "Pre-launch",
+      duration: "3 weeks",
+      activities: [
+        "Write comprehensive API documentation",
+        "Build SDKs for top 3 languages",
+        "Create interactive API playground",
+        "Set up status page and monitoring",
+        "Write integration guides and tutorials",
+        "Build example apps showcasing the API",
+        "Prepare developer newsletter announcement",
+      ],
+    },
+    {
+      phase: "Launch",
+      duration: "1 week",
+      activities: [
+        "Publish API docs and SDK packages",
+        "Post on HackerNews with a technical deep-dive",
+        "Tweet with code snippets showing integration simplicity",
+        "Submit to API directories and marketplaces",
+        "Host a developer webinar / live coding session",
+        "Publish launch blog post",
+      ],
+    },
+    {
+      phase: "Post-launch",
+      duration: "4 weeks",
+      activities: [
+        "Monitor API usage and error rates",
+        "Respond to developer questions on forums",
+        "Write integration tutorials for popular frameworks",
+        "Publish case studies from early adopters",
+        "Add SDKs for additional languages",
+        "Iterate on API based on developer feedback",
+      ],
+    },
+  ],
+  contentHints: {
+    landing_page: "Show a curl command or code snippet as the hero. Display latency/uptime metrics. Include an interactive API playground embed.",
+    readme: "Focus on getting started with the API. Show authentication + first API call in under 5 lines. Link to full docs.",
+    blog_post: "Explain the problem domain deeply. Show integration code examples in multiple languages. Include architecture decisions.",
+    social_post: "Show a code snippet of the API call. Mention key metrics (latency, uptime). Link to the docs.",
+    email: "Lead with what you can build with the API. Show a 3-line code example. Include pricing clarity. Link to docs.",
+  },
+  launchChecklist: [
+    { category: "pre-launch", title: "Write comprehensive API documentation", priority: "critical" },
+    { category: "pre-launch", title: "Build SDKs for top 3 languages", priority: "critical" },
+    { category: "pre-launch", title: "Create interactive API playground", priority: "high" },
+    { category: "pre-launch", title: "Set up status page and uptime monitoring", priority: "critical" },
+    { category: "pre-launch", title: "Write integration tutorials", priority: "high" },
+    { category: "pre-launch", title: "Build example applications", priority: "medium" },
+    { category: "launch", title: "Publish API docs and SDK packages", priority: "critical" },
+    { category: "launch", title: "Post technical deep-dive on HackerNews", priority: "high" },
+    { category: "launch", title: "Submit to API directories", priority: "high" },
+    { category: "launch", title: "Host developer webinar", priority: "medium" },
+    { category: "post-launch", title: "Monitor API usage and error rates", priority: "critical" },
+    { category: "post-launch", title: "Write framework-specific integration guides", priority: "high" },
+    { category: "post-launch", title: "Publish early adopter case studies", priority: "medium" },
+    { category: "post-launch", title: "Add SDKs for additional languages", priority: "medium" },
+  ],
+};
