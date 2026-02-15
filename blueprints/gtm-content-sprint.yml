@@ -1,0 +1,61 @@
+# GTM Content Sprint Blueprint
+# Compatible with plugin-hive swarm orchestration
+# Status: DRAFT — pending plugin-hive blueprint schema finalization
+
+id: gtm-content-sprint
+name: Content Sprint
+description: >
+  Rapidly generate all launch content for a product that already has a GTM plan.
+  Produces landing page, README, docs, social posts, email, and blog post.
+version: 0.1.0
+status: draft
+
+inputs:
+  product_id:
+    description: Product ID to generate content for
+    required: true
+  plan_id:
+    description: GTM plan ID to base content on
+    required: true
+
+flights:
+  - id: content-landing
+    name: Landing Page
+    description: Generate full landing page copy with all sections.
+    prompt: |
+      Generate landing page content for product {{product_id}} using plan {{plan_id}}.
+      Include: hero, problem, solution, features, pricing, CTA sections.
+      Store using gtm_content_create with type landing_page.
+
+  - id: content-readme
+    name: README
+    description: Generate a comprehensive README.md.
+    prompt: |
+      Generate a README for product {{product_id}} using plan {{plan_id}}.
+      Follow best practices: badges, install, usage, examples, contributing.
+      Store using gtm_content_create with type readme.
+
+  - id: content-social
+    name: Social Posts
+    description: Generate social media posts for all platforms.
+    prompt: |
+      Generate social posts for product {{product_id}} using plan {{plan_id}}.
+      Platforms: Twitter/X (3 variants), LinkedIn (2), Reddit (1), HackerNews (1).
+      Store each using gtm_content_create with type social_post.
+
+  - id: content-email
+    name: Launch Email
+    description: Generate launch announcement email.
+    prompt: |
+      Generate a launch announcement email for product {{product_id}} using plan {{plan_id}}.
+      Include subject line alternatives and preview text.
+      Store using gtm_content_create with type email.
+
+  - id: content-blog
+    name: Blog Post
+    description: Generate a launch blog post.
+    depends_on: [content-landing]
+    prompt: |
+      Generate a launch blog post for product {{product_id}} using plan {{plan_id}}.
+      800-1200 words. Include technical depth appropriate to the audience.
+      Store using gtm_content_create with type blog_post.

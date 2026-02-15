@@ -1,0 +1,95 @@
+# GTM Full Launch Blueprint
+# Compatible with plugin-hive swarm orchestration
+# Status: DRAFT — pending plugin-hive blueprint schema finalization
+
+id: gtm-full-launch
+name: Full GTM Launch
+description: >
+  End-to-end go-to-market workflow: analyze the product, research the market,
+  build a GTM plan, generate all launch content, and execute the launch checklist.
+version: 0.1.0
+status: draft
+
+# Estimated flights: 6-8
+# Estimated duration: depends on product complexity
+
+flights:
+  - id: analyze
+    name: Product Analysis
+    description: >
+      Scan the project codebase or product idea to build a structured product profile.
+      Extract what it does, who it's for, key differentiators, and technical capabilities.
+    prompt: |
+      Analyze the product and create a product profile using the GTM MCP tools.
+      Project path: {{project_path}}
+      Product idea: {{product_idea}}
+    outputs:
+      - PRODUCT_ID
+      - PRODUCT_NAME
+      - PRODUCT_CATEGORY
+
+  - id: research
+    name: Market Research
+    description: >
+      Conduct competitive analysis, identify market landscape, and gather intelligence
+      to inform the GTM strategy.
+    depends_on: [analyze]
+    prompt: |
+      Research the competitive landscape for {{PRODUCT_NAME}} in the {{PRODUCT_CATEGORY}} category.
+      Focus on: competitors, pricing benchmarks, distribution channels, and market gaps.
+    outputs:
+      - COMPETITORS
+      - MARKET_INSIGHTS
+      - RECOMMENDED_CHANNELS
+
+  - id: plan
+    name: GTM Plan Creation
+    description: >
+      Build a comprehensive GTM plan using product analysis and market research.
+      Covers positioning, messaging, ICP, channels, pricing, and timeline.
+    depends_on: [analyze, research]
+    prompt: |
+      Create a GTM plan for product {{PRODUCT_ID}} ({{PRODUCT_NAME}}).
+      Use research insights: {{MARKET_INSIGHTS}}
+      Recommended channels: {{RECOMMENDED_CHANNELS}}
+      Competitors: {{COMPETITORS}}
+    outputs:
+      - PLAN_ID
+
+  - id: content-landing
+    name: Landing Page Content
+    description: Generate landing page copy based on the GTM plan.
+    depends_on: [plan]
+    prompt: |
+      Generate landing page content for product {{PRODUCT_ID}} using plan {{PLAN_ID}}.
+      Store using gtm_content_create.
+
+  - id: content-readme
+    name: README & Docs
+    description: Generate README and documentation based on the product profile.
+    depends_on: [plan]
+    prompt: |
+      Generate a README.md and quickstart docs for product {{PRODUCT_ID}} using plan {{PLAN_ID}}.
+      Store using gtm_content_create.
+
+  - id: content-social
+    name: Social & Email Content
+    description: Generate social media posts and launch email.
+    depends_on: [plan]
+    prompt: |
+      Generate social media posts (Twitter, LinkedIn, Reddit, HN) and a launch email
+      for product {{PRODUCT_ID}} using plan {{PLAN_ID}}.
+      Store using gtm_content_create.
+
+  - id: launch-prep
+    name: Launch Preparation
+    description: >
+      Review all generated content, create the final launch checklist,
+      and prepare for launch day.
+    depends_on: [content-landing, content-readme, content-social]
+    prompt: |
+      Review all content for product {{PRODUCT_ID}}, plan {{PLAN_ID}}.
+      Generate the launch checklist using gtm_launch_item_create.
+      Summarize readiness status.
+    outputs:
+      - LAUNCH_READY

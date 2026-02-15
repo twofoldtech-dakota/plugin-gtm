@@ -1,0 +1,60 @@
+# GTM Competitive Intelligence Blueprint
+# Compatible with plugin-hive swarm orchestration
+# Status: DRAFT — pending plugin-hive blueprint schema finalization
+
+id: gtm-competitive-intel
+name: Competitive Intelligence
+description: >
+  Deep competitive analysis using multiple parallel research bees.
+  Produces a comprehensive competitive landscape report.
+version: 0.1.0
+status: draft
+
+inputs:
+  product_id:
+    description: Product ID to research competitors for
+    required: true
+  category:
+    description: Product category for competitor search
+    required: true
+
+flights:
+  - id: identify
+    name: Identify Competitors
+    description: >
+      Search for all relevant competitors and alternatives in the space.
+    prompt: |
+      Research and identify all competitors and alternatives for a product
+      in the {{category}} category. Search GitHub, ProductHunt, Google,
+      and developer communities. List at least 5-10 competitors.
+    outputs:
+      - COMPETITOR_LIST
+
+  - id: analyze-direct
+    name: Analyze Direct Competitors
+    description: Deep-dive into the top 3 direct competitors.
+    depends_on: [identify]
+    prompt: |
+      For the top 3 direct competitors from: {{COMPETITOR_LIST}}
+      Research: features, pricing, target audience, strengths, weaknesses,
+      community size, funding, recent updates.
+
+  - id: analyze-indirect
+    name: Analyze Indirect Competitors
+    description: Analyze indirect competitors and adjacent solutions.
+    depends_on: [identify]
+    prompt: |
+      For indirect competitors and adjacent solutions from: {{COMPETITOR_LIST}}
+      Research: how they partially solve the same problem, what they do differently,
+      potential for convergence.
+
+  - id: synthesize
+    name: Synthesize Report
+    description: >
+      Combine all research into a comprehensive competitive landscape report
+      with positioning recommendations.
+    depends_on: [analyze-direct, analyze-indirect]
+    prompt: |
+      Synthesize competitive research into a report for product {{product_id}}.
+      Include: comparison matrix, SWOT analysis, positioning gaps,
+      differentiation opportunities, and strategic recommendations.

@@ -1,0 +1,25 @@
+{
+  "name": "plugin-gtm",
+  "version": "0.1.0",
+  "description": "Go-to-market engine for Claude Code — analyze products, build GTM plans, generate launch content, and orchestrate market entry.",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.24.4",
+    "yaml": "^2.7.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "tsup": "^8.4.0",
+    "@types/node": "^22.15.3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "plugin-gtm",
+  "description": "Go-to-market engine for Claude Code — analyze products, build GTM plans, generate launch content, and orchestrate market entry.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Dakota Smith"
+  },
+  "repository": "https://github.com/twofoldtech-dakota/plugin-gtm",
+  "license": "MIT"
+}

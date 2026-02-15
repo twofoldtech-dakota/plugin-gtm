@@ -1,0 +1,78 @@
+# GTM Idea-to-Plan Blueprint
+# Compatible with plugin-hive swarm orchestration
+# Status: DRAFT — pending plugin-hive blueprint schema finalization
+
+id: gtm-idea-to-plan
+name: Idea to Plan
+description: >
+  Take a raw product idea through validation, analysis, and planning.
+  Starts with just an idea description and produces a complete GTM plan.
+version: 0.1.0
+status: draft
+
+inputs:
+  idea:
+    description: The product idea description
+    required: true
+
+flights:
+  - id: validate
+    name: Idea Validation
+    description: >
+      Validate the product idea by researching market demand,
+      existing solutions, and feasibility.
+    prompt: |
+      Validate this product idea: {{idea}}
+      Research: Does this problem exist? How many people have it?
+      What solutions exist today? What's the gap?
+    outputs:
+      - VALIDATION_SCORE
+      - MARKET_EXISTS
+      - EXISTING_SOLUTIONS
+      - OPPORTUNITY
+
+  - id: profile
+    name: Build Product Profile
+    description: Create a structured product profile from the validated idea.
+    depends_on: [validate]
+    prompt: |
+      Create a product profile for the idea: {{idea}}
+      Based on validation: {{OPPORTUNITY}}
+      Existing solutions: {{EXISTING_SOLUTIONS}}
+      Use gtm_product_create to persist the profile.
+    outputs:
+      - PRODUCT_ID
+      - PRODUCT_NAME
+
+  - id: research
+    name: Market & Competitive Research
+    description: Conduct market research based on the product profile.
+    depends_on: [profile]
+    prompt: |
+      Research the market for {{PRODUCT_NAME}} ({{PRODUCT_ID}}).
+      Focus on: market size, competitors, pricing models, and distribution channels.
+    outputs:
+      - MARKET_INSIGHTS
+      - COMPETITORS
+
+  - id: plan
+    name: Create GTM Plan
+    description: Build the comprehensive GTM plan.
+    depends_on: [profile, research]
+    prompt: |
+      Create a full GTM plan for {{PRODUCT_NAME}} ({{PRODUCT_ID}}).
+      Market insights: {{MARKET_INSIGHTS}}
+      Competitors: {{COMPETITORS}}
+      Use gtm_plan_create to persist the plan with all sections.
+    outputs:
+      - PLAN_ID
+
+  - id: summary
+    name: Executive Summary
+    description: Produce a final summary with plan overview and recommended next steps.
+    depends_on: [plan]
+    prompt: |
+      Create an executive summary for the GTM plan {{PLAN_ID}}
+      for product {{PRODUCT_NAME}} ({{PRODUCT_ID}}).
+      Include: idea validation results, market opportunity,
+      competitive landscape, plan highlights, and recommended next steps.

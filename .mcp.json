@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "gtm": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/index.js"],
+      "env": {
+        "GTM_DATA_DIR": "${CLAUDE_PROJECT_DIR}/.gtm",
+        "PROJECT_DIR": "${CLAUDE_PROJECT_DIR}"
+      }
+    }
+  }
+}
